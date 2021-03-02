@@ -2,13 +2,13 @@ package edu.born.cool.model;
 
 public class Cool {
     private int id;
-    private float amount;
+    private int amount;
 
-    public Cool(float amount) {
+    public Cool(int amount) {
         this.amount = amount;
     }
 
-    public Cool(int id, float amount) {
+    public Cool(int id, int amount) {
         this.id = id;
         this.amount = amount;
     }
