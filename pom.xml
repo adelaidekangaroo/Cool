@@ -6,6 +6,7 @@
 
     <groupId>edu.born</groupId>
     <artifactId>Cool</artifactId>
+    <packaging>war</packaging>
     <version>1.0</version>
 
     <properties>
@@ -50,5 +51,22 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>cool</finalName>
+        <defaultGoal>package</defaultGoal>
+        <plugins>
+            <!-- For Compile Java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
