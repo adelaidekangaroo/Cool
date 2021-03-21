@@ -13,52 +13,52 @@ import static java.util.Objects.requireNonNull;
 public class CoolRepositoryImpl implements CoolRepository {
 
     @Override
-    public void create(Cool cool) {
+    public boolean save(Cool cool) {
+        return cool.isNew() ? create(cool) : update(cool);
+    }
+
+    public boolean create(Cool cool) {
 
         try (var connection = getConnection();
              var statement = connection.prepareStatement(INSERT)) {
 
             statement.setInt(1, cool.getAmount());
-            statement.executeUpdate();
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    @Override
     public boolean update(Cool cool) {
-
-        var isUpdated = false;
 
         try (var connection = getConnection();
              var statement = connection.prepareStatement(UPDATE)) {
 
             statement.setInt(1, cool.getAmount());
             statement.setInt(2, cool.getId());
-            isUpdated = statement.executeUpdate() > 0;
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return isUpdated;
+        return false;
     }
 
     @Override
-    public boolean delete(Cool cool) {
-
-        var isUpdated = false;
+    public boolean delete(int id) {
 
         try (var connection = getConnection();
              var statement = connection.prepareStatement(DELETE)) {
 
-            statement.setInt(1, cool.getId());
-            isUpdated = statement.executeUpdate() > 0;
+            statement.setInt(1, id);
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return isUpdated;
+        return false;
     }
 
     @Override
