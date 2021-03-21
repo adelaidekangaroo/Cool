@@ -16,7 +16,7 @@ public class DbConfig {
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
