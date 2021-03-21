@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static java.lang.Integer.parseInt;
+
 public class CoolController extends HttpServlet {
 
     private final CoolRepository repository;
@@ -53,7 +55,7 @@ public class CoolController extends HttpServlet {
     private void showEditForm(HttpServletRequest request,
                               HttpServletResponse response) throws ServletException, IOException {
 
-        var id = Integer.parseInt(request.getParameter("id"));
+        var id = parseInt(request.getParameter("id"));
         var cool = repository.getById(id);
 
         request.setAttribute("cool", cool);
@@ -65,8 +67,8 @@ public class CoolController extends HttpServlet {
                       HttpServletResponse response) throws IOException {
 
         String sId = request.getParameter("id");
-        Integer id = sId != null ? Integer.parseInt(sId) : null;
-        var amount = Integer.parseInt(request.getParameter("amount"));
+        Integer id = sId != null ? parseInt(sId) : null;
+        var amount = parseInt(request.getParameter("amount"));
 
         var cool = new Cool(id, amount);
         repository.save(cool);
@@ -77,7 +79,7 @@ public class CoolController extends HttpServlet {
     private void delete(HttpServletRequest request,
                         HttpServletResponse response) throws IOException {
 
-        var id = Integer.parseInt(request.getParameter("id"));
+        var id = parseInt(request.getParameter("id"));
         repository.delete(id);
 
         response.sendRedirect("list");
