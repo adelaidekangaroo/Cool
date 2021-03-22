@@ -2,26 +2,25 @@ package edu.born.cool.model;
 
 import java.util.Objects;
 
-public class Cool implements Exist {
+public class Cool {
 
     private Integer id;
-    private int amount;
+    private final Integer amount;
 
     public Cool(int amount) {
         this.amount = amount;
     }
 
-    public Cool(Integer id, int amount) {
+    public Cool(Integer id, Integer amount) {
         this.id = id;
         this.amount = amount;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
@@ -30,8 +29,7 @@ public class Cool implements Exist {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Cool cool = (Cool) other;
-        return amount == cool.amount &&
-                Objects.equals(id, cool.id);
+        return Objects.equals(amount, cool.amount) && Objects.equals(id, cool.id);
     }
 
     @Override
