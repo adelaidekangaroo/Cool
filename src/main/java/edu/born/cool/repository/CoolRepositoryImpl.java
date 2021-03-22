@@ -13,24 +13,20 @@ import static java.util.Objects.requireNonNull;
 public class CoolRepositoryImpl implements CoolRepository {
 
     @Override
-    public boolean save(Cool cool) {
-        return cool.isNew() ? create(cool) : update(cool);
-    }
-
-    public boolean create(Cool cool) {
+    public void create(Cool cool) {
 
         try (var connection = getConnection();
              var statement = connection.prepareStatement(INSERT)) {
 
             statement.setInt(1, cool.getAmount());
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
+    @Override
     public boolean update(Cool cool) {
 
         try (var connection = getConnection();
@@ -72,7 +68,7 @@ public class CoolRepositoryImpl implements CoolRepository {
             statement.setInt(1, id);
             var resultSet = statement.executeQuery();
 
-            if (resultSet.first()) {
+            if (resultSet.next()) {
                 cool = new Cool(
                         id,
                         resultSet.getInt("amount")
